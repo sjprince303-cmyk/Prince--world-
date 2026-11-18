@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prince World</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#f0f2f5;
+ color:#222;
+}
+header{
+ background:#1877f2;
+ color:white;
+ padding:15px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ position:sticky;
+ top:0;
+}
+header h2{margin:0}
+.container{
+ max-width:600px;
+ margin:auto;
+ padding:12px;
+}
+.card{
+ background:white;
+ padding:15px;
+ border-radius:12px;
+ margin-bottom:15px;
+ box-shadow:0 1px 4px #ccc;
+}
+textarea{
+ width:100%;
+ padding:12px;
+ border:1px solid #ddd;
+ border-radius:10px;
+ resize:vertical;
+}
+button{
+ border:0;
+ background:#1877f2;
+ color:white;
+ padding:10px 16px;
+ border-radius:8px;
+ cursor:pointer;
+}
+.post{
+ background:white;
+ padding:15px;
+ border-radius:12px;
+ margin-bottom:15px;
+}
+.post h4{margin:0 0 10px}
+.post p{line-height:1.5}
+.actions{
+ display:flex;
+ justify-content:space-around;
+ border-top:1px solid #ddd;
+ padding-top:12px;
+ margin-top:12px;
+}
+.actions button{
+ background:#f0f2f5;
+ color:#333;
+}
+nav{
+ display:flex;
+ justify-content:space-around;
+ background:white;
+ padding:12px;
+ position:sticky;
+ bottom:0;
+}
+nav a{
+ text-decoration:none;
+ color:#1877f2;
+ font-weight:bold;
+}
+small{color:#777}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>🌍 Prince World</h2>
+<span>👤</span>
+</header>
+
+<div class="container">
+
+<div class="card">
+<h3>স্বাগতম Prince World-এ ❤️</h3>
+<p>তোমার বন্ধুদের সঙ্গে যুক্ত হও, পোস্ট করো এবং আনন্দ ভাগ করে নাও।</p>
+</div>
+
+<div class="card">
+<h3>What's on your mind?</h3>
+<textarea id="postText" rows="3"
+placeholder="তুমি কী ভাবছো?"></textarea>
+<br><br>
+<button onclick="addPost()">পোস্ট করো</button>
+</div>
+
+<h3>📰 নিউজ ফিড</h3>
+
+<div id="feed">
+
+<div class="post">
+<h4>🌍 Prince World</h4>
+<small>স্বাগতম আমাদের নতুন সামাজিক মাধ্যমে!</small>
+<p>এখানে সবাই মিলে নতুন বন্ধুত্ব তৈরি করব। ❤️</p>
+<div class="actions">
+<button onclick="likePost(this)">👍 Like 0</button>
+<button onclick="commentPost()">💬 Comment</button>
+<button onclick="sharePost()">↗ Share</button>
+</div>
+</div>
+
+</div>
+</div>
+
+<nav>
+<a href="#">🏠 Home</a>
+<a href="#postText">➕ Post</a>
+<a href="#feed">📰 Feed</a>
+</nav>
+
+<script>
+function addPost(){
+ let input=document.getElementById("postText");
+ let text=input.value.trim();
+
+ if(!text){
+ alert("আগে কিছু লিখুন!");
+ return;
+ }
+
+ let post=document.createElement("div");
+ post.className="post";
+
+ let title=document.createElement("h4");
+ title.textContent="🌍 Prince World";
+
+ let time=document.createElement("small");
+ time.textContent="এইমাত্র";
+
+ let content=document.createElement("p");
+ content.textContent=text;
+
+ let actions=document.createElement("div");
+ actions.className="actions";
+
+ let like=document.createElement("button");
+ like.textContent="👍 Like 0";
+ like.onclick=function(){likePost(like)};
+
+ let comment=document.createElement("button");
+ comment.textContent="💬 Comment";
+ comment.onclick=commentPost;
+
+ let share=document.createElement("button");
+ share.textContent="↗ Share";
+ share.onclick=sharePost;
+
+ actions.append(like,comment,share);
+ post.append(title,time,content,actions);
+
+ document.getElementById("feed").prepend(post);
+ input.value="";
+}
+
+function likePost(button){
+ let count=Number(button.textContent.match(/\d+/)[0]);
+ button.textContent="👍 Like "+(count+1);
+}
+
+function commentPost(){
+ alert("কমেন্ট ফিচার পরবর্তী সংস্করণে যোগ হবে!");
+}
+
+function sharePost(){
+ if(navigator.share){
+ navigator.share({title:"Prince World",text:"Prince World দেখুন!"});
+ }else{
+ alert("Prince World-এ স্বাগতম!");
+ }
+}
+</script>
+
+</body>
+</html>
